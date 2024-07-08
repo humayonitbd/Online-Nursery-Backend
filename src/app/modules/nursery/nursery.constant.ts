@@ -1,0 +1,1 @@
+export const seatchFiledByNursery = ['title','price'];

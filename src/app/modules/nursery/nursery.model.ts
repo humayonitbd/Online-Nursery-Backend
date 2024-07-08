@@ -3,6 +3,7 @@ import { TNursery } from "./nursery.interface";
 
 
 
+
 const NurserySchema = new Schema<TNursery>(
   {
     title: { type: String, required: [true, 'Nursery Title is required'] },
@@ -15,6 +16,7 @@ const NurserySchema = new Schema<TNursery>(
     },
     image: { type: String, required: [true, 'Nursery Image are required'] },
     details: { type: String, required: [true, 'Nursery Details are required'] },
+    stock: { type: Number, required: [true, 'Nursery Stoke are required'] },
     isDeleted: { type: Boolean, default: false },
     categoryId: {
       type: Schema.Types.ObjectId,

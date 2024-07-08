@@ -1,5 +1,6 @@
 
 import QueryBuilder from '../../builder/QueryBuilder';
+import { seatchFiledByNursery } from './nursery.constant';
 import { TNursery } from './nursery.interface';
 import { Nursery } from './nursery.model';
 
@@ -16,10 +17,10 @@ const createServicNursery= async (payload: TNursery) => {
 
 const getAllNurseryService = async (query: Record<string, unknown>) => {
   const nurseryQuery = new QueryBuilder(
-    Nursery.find().populate('categoryId'),
+    Nursery.find({isDeleted:false}).populate('categoryId'),
     query,
   )
-    .search(['name'])
+    .search(seatchFiledByNursery)
     .filter()
     .sort()
     .paginate()

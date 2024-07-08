@@ -3,10 +3,11 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
+import { BookingNurseryService } from './bookingNursery.service';
 
 
 const createBookingNursery = catchAsync(async (req, res) => {
-  const result = await NurseryService.createServicNursery(req.body);
+  const result = await BookingNurseryService.createBookingNurseryServic(req.body);
 
   if (!result) {
     sendResponse(res, {
@@ -26,7 +27,7 @@ const createBookingNursery = catchAsync(async (req, res) => {
 });
 
 const getAllBookingNursery = catchAsync(async (req, res) => {
-  const result = await NurseryService.getAllNurseryService(req.query);
+  const result = await BookingNurseryService.getAllBookingNurseryService(req.query);
 
   if (!result) {
     sendResponse(res, {
@@ -47,7 +48,9 @@ const getAllBookingNursery = catchAsync(async (req, res) => {
 });
 
 const getSingleBookingNursery = catchAsync(async (req, res) => {
-  const result = await NurseryService.getAllNurseryService(req.params.id);
+  const result = await BookingNurseryService.getSingleBookingNurseryServic(
+    req.params.id,
+  );
 
   if (!result) {
     sendResponse(res, {
@@ -61,14 +64,15 @@ const getSingleBookingNursery = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Booking Nursery are retrieved successfully!',
-    meta: result.meta,
-    data: result.result,
+    message: 'Booking Single Nursery are retrieved successfully!',
+    data: result,
   });
 });
 
 const deleteSingleBookingNursery = catchAsync(async (req, res) => {
-  const result = await NurseryService.getAllNurseryService(req.params.id);
+  const result = await BookingNurseryService.deleteSingleBookingNurseryServic(
+    req.params.id,
+  );
 
   if (!result) {
     sendResponse(res, {
@@ -83,8 +87,7 @@ const deleteSingleBookingNursery = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: 'Booking Nursery is Deleted successfully!',
-    meta: result.meta,
-    data: result.result,
+    data: result,
   });
 });
 

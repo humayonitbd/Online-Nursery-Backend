@@ -8,5 +8,6 @@ export type TNursery = {
   rating: number;
   image: string;
   details: string;
+  stock:number;
   isDeleted: boolean;
 };
