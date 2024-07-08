@@ -15,7 +15,10 @@ const createServicNursery= async (payload: TNursery) => {
 };
 
 const getAllNurseryService = async (query: Record<string, unknown>) => {
-  const nurseryQuery = new QueryBuilder(Nursery.find(), query)
+  const nurseryQuery = new QueryBuilder(
+    Nursery.find().populate('categoryId'),
+    query,
+  )
     .search(['name'])
     .filter()
     .sort()
