@@ -15,5 +15,6 @@ router.post(
 );
 
 router.get('/', NurseryController.getAllNursery);
+router.get('/:id', NurseryController.getSingleNursery);
 
 export const NurseryRoutes = router;

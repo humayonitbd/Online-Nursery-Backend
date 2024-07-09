@@ -1,5 +1,7 @@
 
+import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
+import { AppError } from '../../error/AppError';
 import { seatchFiledByNursery } from './nursery.constant';
 import { TNursery } from './nursery.interface';
 import { Nursery } from './nursery.model';
@@ -31,7 +33,18 @@ const getAllNurseryService = async (query: Record<string, unknown>) => {
   return { meta, result };
 };
 
+const getSingleNurseryServic = async (payload: string) => {
+  const existingBookingById = await Nursery.findById(payload);
+
+  if (!existingBookingById) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Nursery is not found!!');
+  }
+  const result = await Nursery.findById(payload).populate('categoryId');
+  return result;
+};
+
 export const NurseryService = {
   createServicNursery,
   getAllNurseryService,
+  getSingleNurseryServic,
 };

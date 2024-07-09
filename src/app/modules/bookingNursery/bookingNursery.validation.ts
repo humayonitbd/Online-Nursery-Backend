@@ -9,6 +9,7 @@ const BookingNurseryValidationSchema = z.object({
       .number()
       .min(1, 'Booking Nursery Details are required')
       .optional(),
+    price: z.number().min(1, 'Price ID is required'),
     payment: z.boolean().default(false).optional(),
     isDeleted: z.boolean().default(false).optional(),
     nurseryId: z.string().min(1, 'Category ID is required'),

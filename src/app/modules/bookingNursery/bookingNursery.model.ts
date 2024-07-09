@@ -14,10 +14,14 @@ const BookingNurserySchema = new Schema<TBookingNursery>(
       type: Number,
       required: [true, 'Booking Nursery Quantity are required'],
     },
+    price: {
+      type: Number,
+      required: [true, 'Booking Nursery Price are required'],
+    },
     isDeleted: { type: Boolean, default: false },
     nurseryId: {
       type: Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: 'Nursery',
       required: [true, 'Nursery ID is required'],
     },
   },

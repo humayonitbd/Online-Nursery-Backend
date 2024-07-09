@@ -46,7 +46,30 @@ const getAllNursery = catchAsync(async (req, res) => {
   });
 });
 
+const getSingleNursery = catchAsync(async (req, res) => {
+  const result = await NurseryService.getSingleNurseryServic(
+    req.params.id,
+  );
+
+  if (!result) {
+    sendResponse(res, {
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found!',
+      data: [],
+    });
+  }
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Single Nursery are retrieved successfully!',
+    data: result,
+  });
+});
+
 export const NurseryController = {
   createNursery,
   getAllNursery,
+  getSingleNursery,
 };

@@ -6,46 +6,70 @@ import { AppError } from '../../error/AppError';
 import { Nursery } from '../nursery/nursery.model';
 import { TBookingNursery } from './bookingNursery.interface';
 import { BookingNursery } from './bookingNursery.model';
+import mongoose, { Error } from 'mongoose';
 
 
 const createBookingNurseryServic = async (payload: TBookingNursery) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-    const nurseryStock = await Nursery.findById(payload.nurseryId);
-    if(!nurseryStock){
-        throw new AppError(404,"Nursery is not Found!!")
+  try {
+    const nurseryStock = await Nursery.findById(payload.nurseryId).session(
+      session,
+    );
+    if (!nurseryStock) {
+      throw new AppError(404, 'Nursery not found!');
     }
 
-    
-    
-  const existingBooking = await BookingNursery.findOne({
-    nurseryId: payload.nurseryId,
-  });
+    const existingBooking = await BookingNursery.findOne({
+      nurseryId: payload.nurseryId,
+    }).session(session);
 
-  if (!existingBooking) {
+    if (!existingBooking) {
       payload.quantity = 1;
-    } else {
-        if (existingBooking.quantity === undefined) {
-        throw new Error('Invalid existing booking data');
+      
+      if (nurseryStock.stock < payload.quantity) {
+        throw new AppError(httpStatus.BAD_REQUEST, 'Nursery is out of stock!');
+      } else {
+        nurseryStock.stock -= payload.quantity;
+        await nurseryStock.save({ session });
       }
-      existingBooking.quantity += 1;
-      await existingBooking.save(); 
-      return existingBooking; 
+
+      payload.price = payload.price * payload.quantity;
+    } else {
+      existingBooking.quantity = (existingBooking.quantity || 0) + 1;
+      existingBooking.price = payload.price * existingBooking.quantity;
+      
+      if (nurseryStock.stock < 1) {
+        throw new Error('Nursery is out of stock!');
+      } else {
+        nurseryStock.stock -= 1;
+        await nurseryStock.save({ session });
+      }
+
+      await existingBooking.save({ session });
+      await session.commitTransaction();
+      session.endSession();
+      return existingBooking;
     }
 
-    if(nurseryStock?.stock < payload?.quantity){
-        throw new Error('Product is stok-out!!')
+    const result = await BookingNursery.create([payload], { session });
+    await session.commitTransaction();
+    session.endSession();
 
-    }
-
-
-    const result = await BookingNursery.create(payload);
     return result;
-}
+  } catch (error:any) {
+    await session.abortTransaction();
+    session.endSession();
+    throw new AppError(httpStatus.BAD_REQUEST, error.message);
+  }
+};
+
 
 
 const getAllBookingNurseryService = async (query: Record<string, unknown>) => {
   const BookingNurseryQuery = new QueryBuilder(
-    BookingNursery.find({ isDeleted: false }).populate('categoryId'),
+    BookingNursery.find({ isDeleted: false }).populate('nurseryId'),
     query,
   )
     .search(['title', 'price'])
@@ -67,7 +91,7 @@ const getSingleBookingNurseryServic = async (payload: string) => {
   if (!existingBookingById){
     throw new AppError(httpStatus.NOT_FOUND,"Nursery is not found!!")
   }
-   const result = await BookingNursery.findById(payload);
+   const result = await BookingNursery.findById(payload).populate('nurseryId');
   return result;
 };
 

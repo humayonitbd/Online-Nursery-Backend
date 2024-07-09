@@ -1,1 +1,1 @@
-export const seatchFiledByNursery = ['title','price'];
+export const seatchFiledByNursery = ['title'];
