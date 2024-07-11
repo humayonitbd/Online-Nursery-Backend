@@ -17,6 +17,16 @@ router.get(
   '/',
   CategoryController.getAllCategory,
 );
+router.get('/:id', CategoryController.getSingleCategory);
+router.delete(
+  '/:id',
+  CategoryController.deleteSingleCategory,
+);
+router.put(
+  '/:id',
+  validateRequest(CategoryValidation.updateCategoryValidationSchema),
+  CategoryController.updateSingleCategory,
+);
 
 
 export const CategoryRoutes = router;

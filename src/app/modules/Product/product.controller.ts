@@ -1,10 +1,12 @@
-import httpStatus from "http-status";
-import catchAsync from "../../utils/catchAsync";
-import sendResponse from "../../utils/sendResponse";
-import { CategoryService } from "./category.service";
 
-const createCategory = catchAsync(async (req, res) => {
-  const result = await CategoryService.createCategoryService( req.body);
+import httpStatus from 'http-status';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { ProductService } from './product.service';
+
+
+const createNursery = catchAsync(async (req, res) => {
+  const result = await ProductService.createServicProduct(req.body);
 
   if (!result) {
     sendResponse(res, {
@@ -18,13 +20,13 @@ const createCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Category Create successfully!!',
+    message: 'Product Create successfully!!',
     data: result,
   });
 });
 
-const getAllCategory = catchAsync(async (req, res) => {
-  const result = await CategoryService.getAllCategoryService( req.query);
+const getAllNursery = catchAsync(async (req, res) => {
+  const result = await ProductService.getAllProductService(req.query);
 
   if (!result) {
     sendResponse(res, {
@@ -38,14 +40,16 @@ const getAllCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Category are retrieved successfully!',
+    message: 'Product are retrieved successfully!',
     meta: result.meta,
     data: result.result,
   });
 });
 
-const getSingleCategory = catchAsync(async (req, res) => {
-  const result = await CategoryService.getSingleCategoryServic(req.params.id);
+const getSingleNursery = catchAsync(async (req, res) => {
+  const result = await ProductService.getSingleProductServic(
+    req.params.id,
+  );
 
   if (!result) {
     sendResponse(res, {
@@ -59,12 +63,13 @@ const getSingleCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Category is retrieved successfully!',
+    message: 'Single Product are retrieved successfully!',
     data: result,
   });
 });
-const deleteSingleCategory = catchAsync(async (req, res) => {
-  const result = await CategoryService.deleteSingleCategoryServic( req.params.id);
+
+const deleteSingleProduct = catchAsync(async (req, res) => {
+  const result = await ProductService.deleteSingleProductServic(req.params.id);
 
   if (!result) {
     sendResponse(res, {
@@ -78,13 +83,14 @@ const deleteSingleCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Category is deleted successfully!',
+    message: 'Single Product are deleted successfully!',
     data: result,
   });
 });
-
-const updateSingleCategory = catchAsync(async (req, res) => {
-  const result = await CategoryService.updateSingleCategoryServic( req.params.id, req.body);
+const updateSingleProduct = catchAsync(async (req, res) => {
+  const result = await ProductService.updateSingleProductServic(
+    req.params.id,req.body
+  );
 
   if (!result) {
     sendResponse(res, {
@@ -98,17 +104,15 @@ const updateSingleCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Category is Updated successfully!',
+    message: 'Single Product are Updated successfully!',
     data: result,
   });
 });
 
-
-
-export const CategoryController = {
-  createCategory,
-  getAllCategory,
-  deleteSingleCategory,
-  updateSingleCategory,
-  getSingleCategory,
+export const NurseryController = {
+  createNursery,
+  getAllNursery,
+  getSingleNursery,
+  deleteSingleProduct,
+  updateSingleProduct,
 };

@@ -3,11 +3,11 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { BookingNurseryService } from './bookingNursery.service';
+import { BookingProductService } from './bookingProduct.service';
 
 
-const createBookingNursery = catchAsync(async (req, res) => {
-  const result = await BookingNurseryService.createBookingNurseryServic(req.body);
+const createBookingProduct = catchAsync(async (req, res) => {
+  const result = await BookingProductService.createBookingProductServic(req.body);
 
   if (!result) {
     sendResponse(res, {
@@ -21,13 +21,13 @@ const createBookingNursery = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Booking Nursery is successfully!!',
+    message: 'Booking Product is successfully!!',
     data: result,
   });
 });
 
-const getAllBookingNursery = catchAsync(async (req, res) => {
-  const result = await BookingNurseryService.getAllBookingNurseryService(req.query);
+const getAllBookingProduct = catchAsync(async (req, res) => {
+  const result = await BookingProductService.getAllBookingProductService(req.query);
 
   if (!result) {
     sendResponse(res, {
@@ -41,14 +41,14 @@ const getAllBookingNursery = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Booking Nursery are retrieved successfully!',
+    message: 'Booking Product are retrieved successfully!',
     meta: result.meta,
     data: result.result,
   });
 });
 
-const getSingleBookingNursery = catchAsync(async (req, res) => {
-  const result = await BookingNurseryService.getSingleBookingNurseryServic(
+const getSingleBookingProduct = catchAsync(async (req, res) => {
+  const result = await BookingProductService.getSingleBookingProductServic(
     req.params.id,
   );
 
@@ -64,13 +64,13 @@ const getSingleBookingNursery = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Booking Single Nursery are retrieved successfully!',
+    message: 'Booking Single Product are retrieved successfully!',
     data: result,
   });
 });
 
-const deleteSingleBookingNursery = catchAsync(async (req, res) => {
-  const result = await BookingNurseryService.deleteSingleBookingNurseryServic(
+const deleteSingleBookingProduct = catchAsync(async (req, res) => {
+  const result = await BookingProductService.deleteSingleBookingProductServic(
     req.params.id,
   );
 
@@ -86,14 +86,14 @@ const deleteSingleBookingNursery = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Booking Nursery is Deleted successfully!',
+    message: 'Booking Product is Deleted successfully!',
     data: result,
   });
 });
 
-export const BookingNurseryController = {
-  createBookingNursery,
-  getAllBookingNursery,
-  getSingleBookingNursery,
-  deleteSingleBookingNursery,
+export const BookingProductController = {
+  createBookingProduct,
+  getAllBookingProduct,
+  getSingleBookingProduct,
+  deleteSingleBookingProduct,
 };
