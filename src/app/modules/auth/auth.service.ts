@@ -11,7 +11,7 @@ import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 import { JwtPayload } from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { sendEmail } from "../../utils/sendEmail";
-import jwt from 'jsonwebtoken';
+
 
 
 const signupService = async (file: any, payload: TUser): Promise<any> => {

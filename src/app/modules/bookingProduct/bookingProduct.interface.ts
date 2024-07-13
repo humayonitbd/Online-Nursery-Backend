@@ -2,9 +2,11 @@
 import { Types } from 'mongoose';
 
 export type TBookingProduct = {
-  ProductId: Types.ObjectId;
-  price: number;
-  payment?: boolean;
-  quantity?: number;
-  isDeleted?: boolean;
+  orderProductTitle: string;
+  orderProductPrice: number;
+  orderProductCategory: string;
+  orderProductQuantity: number;
+  transactionId: string | number;
+  userEmail: string;
+  orderProductId: Types.ObjectId;
 };

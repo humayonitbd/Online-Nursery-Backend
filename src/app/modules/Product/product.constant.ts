@@ -1,1 +1,1 @@
-export const seatchFiledByProduct = ['title'];
+export const seatchFiledByProduct = ['title', 'description'];

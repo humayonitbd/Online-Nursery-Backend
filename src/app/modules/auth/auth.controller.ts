@@ -3,7 +3,7 @@ import config from '../../config';
 import sendResponse from '../../utils/sendResponse';
 import { AuthServices } from './auth.service';
 import catchAsync from '../../utils/catchAsync';
-import { JwtPayload } from 'jsonwebtoken';
+
 
 
 

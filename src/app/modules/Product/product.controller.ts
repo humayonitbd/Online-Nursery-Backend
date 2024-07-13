@@ -5,7 +5,7 @@ import sendResponse from '../../utils/sendResponse';
 import { ProductService } from './product.service';
 
 
-const createNursery = catchAsync(async (req, res) => {
+const createProduct = catchAsync(async (req, res) => {
   const result = await ProductService.createServicProduct(req.body);
 
   if (!result) {
@@ -25,7 +25,7 @@ const createNursery = catchAsync(async (req, res) => {
   });
 });
 
-const getAllNursery = catchAsync(async (req, res) => {
+const getAllProduct = catchAsync(async (req, res) => {
   const result = await ProductService.getAllProductService(req.query);
 
   if (!result) {
@@ -46,7 +46,7 @@ const getAllNursery = catchAsync(async (req, res) => {
   });
 });
 
-const getSingleNursery = catchAsync(async (req, res) => {
+const getSingleProduct = catchAsync(async (req, res) => {
   const result = await ProductService.getSingleProductServic(
     req.params.id,
   );
@@ -109,10 +109,10 @@ const updateSingleProduct = catchAsync(async (req, res) => {
   });
 });
 
-export const NurseryController = {
-  createNursery,
-  getAllNursery,
-  getSingleNursery,
+export const ProductController = {
+  createProduct,
+  getAllProduct,
+  getSingleProduct,
   deleteSingleProduct,
   updateSingleProduct,
 };

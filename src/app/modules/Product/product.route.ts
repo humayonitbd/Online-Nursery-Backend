@@ -3,7 +3,7 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { ProductValidation } from './product.validation';
-import { NurseryController } from './product.controller';
+import { ProductController } from './product.controller';
 
 
 const router = express.Router();
@@ -11,12 +11,12 @@ const router = express.Router();
 router.post(
   '/create-product',
   validateRequest(ProductValidation.createProductValidationSchema),
-  NurseryController.createNursery,
+  ProductController.createProduct,
 );
 
-router.get('/', NurseryController.getAllNursery);
-router.get('/:id', NurseryController.getSingleNursery);
-router.delete('/:id', NurseryController.deleteSingleProduct);
-router.put('/:id', validateRequest(ProductValidation.updateProductValidationSchema), NurseryController.updateSingleProduct);
+router.get('/', ProductController.getAllProduct);
+router.get('/:id', ProductController.getSingleProduct);
+router.delete('/:id', ProductController.deleteSingleProduct);
+router.put('/:id', validateRequest(ProductValidation.updateProductValidationSchema), ProductController.updateSingleProduct);
 
 export const ProductRoutes = router;

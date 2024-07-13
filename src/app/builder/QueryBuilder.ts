@@ -24,17 +24,42 @@ class QueryBuilder<T> {
     return this;
   }
 
+  // filter() {
+  //   const queryObj = { ...this.query }; //copy
+  //   // filtering
+  //   const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
+
+  //   excludeFields.forEach((el) => delete queryObj[el]);
+
+  //   this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+
+  //   return this;
+  // }
+
   filter() {
-    const queryObj = { ...this.query }; //copy
-    // filtering
-    const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
+  const queryObj = { ...this.query }; 
 
-    excludeFields.forEach((el) => delete queryObj[el]);
+  const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
 
+  excludeFields.forEach((el) => delete queryObj[el]);
+
+
+    if (queryObj.price) {
+    const priceValue = Number(queryObj.price);
+    const priceUpperLimit = priceValue + 100;
+
+    this.modelQuery = this.modelQuery.find({
+      price: { $gt: priceValue, $lt: priceUpperLimit }
+    } as FilterQuery<T>);
+
+    delete queryObj.price;
+  } else {
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
-
-    return this;
   }
+  return this;
+}
+
+
 
   sort() {
     const sort =

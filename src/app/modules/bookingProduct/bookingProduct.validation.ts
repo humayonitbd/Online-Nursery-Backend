@@ -2,20 +2,26 @@
 
 import { z } from 'zod';
 
-// Define the Zod schema for Nursery
-const BookingNurseryValidationSchema = z.object({
+export const BookingProductValidationSchema = z.object({
   body: z.object({
-    quantity: z
+    orderProductTitle: z
+      .string()
+      .min(1, { message: 'Product title is required' }),
+    orderProductPrice: z
       .number()
-      .min(1, 'Booking Nursery Details are required')
-      .optional(),
-    price: z.number().min(1, 'Price ID is required'),
-    payment: z.boolean().default(false).optional(),
-    isDeleted: z.boolean().default(false).optional(),
-    nurseryId: z.string().min(1, 'Category ID is required'),
+      .min(1, { message: 'Product price must be a required number' }),
+    orderProductCategory: z
+      .string()
+      .min(1, { message: 'Product category is required' }),
+    orderProductQuantity: z
+      .number()
+      .min(1, { message: 'Product quantity is required' }),
+    transactionId: z.union([z.string(), z.number()]),
+    userEmail: z.string().email({ message: 'Invalid email address' }),
+    orderProductId: z.string(),
   }),
 });
 
-export const BookingNurseryValidation = {
-  BookingNurseryValidationSchema,
+export const BookingProductValidation = {
+  BookingProductValidationSchema,
 };

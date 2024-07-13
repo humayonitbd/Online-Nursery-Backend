@@ -1,31 +1,37 @@
 import { Schema, model } from 'mongoose';
 import { TBookingProduct } from './bookingProduct.interface';
 
-const BookingProductSchema = new Schema<TBookingProduct>(
-  {
-    payment: {
-      type: Boolean,
-      default: false,
-    },
-    quantity: {
-      type: Number,
-      required: [true, 'Booking Product Quantity are required'],
-    },
-    price: {
-      type: Number,
-      required: [true, 'Booking Product Price are required'],
-    },
-    isDeleted: { type: Boolean, default: false },
-    ProductId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      required: [true, 'Product ID is required'],
-    },
+const BookingProductSchema: Schema = new Schema({
+  orderProductTitle: {
+    type: String,
+    required: [true, 'orderProductTitle is required'],
   },
-  {
-    timestamps: true,
+  orderProductPrice: {
+    type: Number,
+    required: [true, 'orderProductPrice is required'],
   },
-);
+  orderProductCategory: {
+    type: String,
+    required: [true, 'orderProductCategory is required'],
+  },
+  orderProductQuantity: {
+    type: Number,
+    required: [true, 'orderProductQuantity is required'],
+  },
+  transactionId: {
+    type: Schema.Types.Mixed,
+    required: [true, 'transactionId is required'],
+  },
+  userEmail: {
+    type: String,
+    required: [true, 'userEmail is required'],
+  },
+  orderProductId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Product',
+  },
+});
 
 export const BookingProduct = model<TBookingProduct>(
   'BookingProduct',
