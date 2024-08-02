@@ -6,6 +6,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from "../config";
 import { TUserRole } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
+import { verifyToken } from "../modules/auth/auth.utils";
 
 
 
@@ -19,7 +20,14 @@ const authValidation = (...requiredRoles:TUserRole[]) => {
       }
 
       // check if the token is valid
-      const decoded =  jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
+      
+      let decoded;
+      try {
+        decoded = verifyToken(token,config.jwt_access_secret as string);
+      } catch (error) {
+        throw new AppError(httpStatus.UNAUTHORIZED, 'You are Unauthorized!!');
+      }
+      
           //   const {userId,role} = decoded;
           const {role, userId, email, iat} = decoded;
 

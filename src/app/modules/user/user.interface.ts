@@ -8,9 +8,7 @@ export type TUser = {
   password: string;
   needsPasswordChange?: boolean;
   passwordChangeAt?: Date;
-  phone: string;
   role?: keyof typeof USER_ROLE;
-  address: string;
   profileImg?: string;
   isDeleted: boolean;
 };
@@ -18,7 +16,6 @@ export type TUser = {
 export interface UserModel extends Model<TUser> {
   isUserExistsByEmail(email: string): Promise<TUser>;
   isUserExistsByid(id: string): Promise<TUser>;
-  isUserExistsByNumber(num: string): Promise<TUser>;
   isUserDeleted(isDeleted: string): Promise<TUser>;
   isPasswordMatched(
     plainTextPassword: string,

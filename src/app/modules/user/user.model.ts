@@ -30,21 +30,12 @@ const userSchema = new Schema<TUser, UserModel>(
     passwordChangeAt: {
       type: Date,
     },
-    phone: {
-      type: String,
-      required: [true, 'Phone is required'],
-      unique: true,
-    },
     role: {
       type: String,
       enum: Object.keys(USER_ROLE),
       default: USER_ROLE.user,
     },
-    address: {
-      type: String,
-      required: [true, 'Address is required'],
-    },
-    profileImg: { type: String, default: '' },
+    profileImg: { type: String, required: [0, 'Profile Image is Required'] },
     isDeleted: {
       type: Boolean,
       required: [true, 'isDeleted is required'],
@@ -80,9 +71,6 @@ userSchema.statics.isUserExistsByid = async function (id: string) {
   return await User.findById(id).select('+password');;
 };
 
-userSchema.statics.isUserExistsByNumber = async function (phone: string) {
-  return await User.findOne({ phone });
-};
 
 userSchema.statics.isUserDeleted = async function (id: string) {
   const isUser = await User.findOne({ _id: id});

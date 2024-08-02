@@ -12,8 +12,6 @@ import { JwtPayload } from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 import { sendEmail } from "../../utils/sendEmail";
 
-
-
 const signupService = async (file: any, payload: TUser): Promise<any> => {
   //user existence check
   const user = await User.isUserExistsByEmail(payload?.email);
@@ -22,10 +20,6 @@ const signupService = async (file: any, payload: TUser): Promise<any> => {
     throw new Error('User already exists');
   }
 
-  const userPhone = await User.isUserExistsByNumber(payload?.phone);
-  if (userPhone) {
-    throw new Error('User Number already exists!');
-  }
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
@@ -60,7 +54,7 @@ const loginService = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found!!');
   }
 
-  const userData = await User.isUserExistsByid(user?._id.toString());
+  const userData = await User.isUserExistsByid((user._id as string).toString());
   
 
   if (!userData?.password) {

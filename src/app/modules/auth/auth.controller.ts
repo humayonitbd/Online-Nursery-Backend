@@ -29,18 +29,18 @@ const signupUser = catchAsync(async (req, res) => {
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.loginService(req.body);
+
   const { refreshToken, accessToken, needsPasswordChange } = result;
 
   res.cookie('refreshToken', refreshToken, {
     secure: config.NODE_ENV === 'production',
     httpOnly: true,
-    sameSite: 'none',
-    maxAge: 1000 * 60 * 60 * 24 * 365,
+    // sameSite: 'none',
+    // maxAge: 1000 * 60 * 60 * 24 * 365,
   });
 
-  
   if (!result) {
-    sendResponse(res, {
+    return sendResponse(res, {
       success: false,
       statusCode: httpStatus.NOT_FOUND,
       message: 'No Data Found!',
@@ -58,6 +58,7 @@ const loginUser = catchAsync(async (req, res) => {
     },
   });
 });
+
 
 const changePassword = catchAsync(async (req, res) => {
   const { ...passwordData } = req.body;

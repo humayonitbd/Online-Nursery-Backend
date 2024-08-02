@@ -14,8 +14,11 @@ router.post(
   BookingProductController.createBookingProduct,
 );
 
-router.get('/', BookingProductController.getAllBookingProduct);
+router.get('/users/bookings', BookingProductController.getAllBookingProduct);
+router.delete(
+  '/users/bookings/:id',
+  BookingProductController.deleteSingleBookingProduct,
+);
 // router.get('/:id', BookingProductController.getSingleBookingProduct);
-// router.delete('/:id', BookingProductController.deleteSingleBookingProduct);
 
 export const BookingProductRoutes = router;

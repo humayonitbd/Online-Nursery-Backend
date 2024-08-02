@@ -53,9 +53,30 @@ const getAllBookingProductService = async (query: Record<string, unknown>) => {
   return { meta, result };
 };
 
+const deleteSingleConformProductServic = async (id: string) => {
+  const existingBookingById = await BookingProduct.findById(id);
+
+  if (!existingBookingById) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Booking Product is not found!!');
+  }
+
+  // Delete the product by ID
+  const result = await BookingProduct.deleteOne({ _id: id });
+
+  // Check if a product was actually deleted
+  if (result.deletedCount === 0) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'Booking Product could not be deleted!!',
+    );
+  }
+
+  return result;
+};
+
 
 export const BookingProductService = {
   createBookingProductServic,
   getAllBookingProductService,
-  
+  deleteSingleConformProductServic,
 };

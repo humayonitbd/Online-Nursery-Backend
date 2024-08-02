@@ -73,31 +73,31 @@ const getAllBookingProduct = catchAsync(async (req, res) => {
 //   });
 // });
 
-// const deleteSingleBookingProduct = catchAsync(async (req, res) => {
-//   const result = await BookingProductService.deleteSingleBookingProductServic(
-//     req.params.id,
-//   );
+const deleteSingleBookingProduct = catchAsync(async (req, res) => {
+  const result = await BookingProductService.deleteSingleConformProductServic(
+    req.params.id,
+  );
 
-//   if (!result) {
-//     sendResponse(res, {
-//       success: false,
-//       statusCode: httpStatus.NOT_FOUND,
-//       message: 'No Data Found!',
-//       data: [],
-//     });
-//   }
+  if (!result) {
+    sendResponse(res, {
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found!',
+      data: [],
+    });
+  }
 
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Booking Product is Deleted successfully!',
-//     data: result,
-//   });
-// });
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Booking Product is Deleted successfully!',
+    data: result,
+  });
+});
 
 export const BookingProductController = {
   createBookingProduct,
   getAllBookingProduct,
+  deleteSingleBookingProduct,
   // getSingleBookingProduct,
-  // deleteSingleBookingProduct,
 };
