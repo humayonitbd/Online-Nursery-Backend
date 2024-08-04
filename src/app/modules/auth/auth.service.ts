@@ -299,6 +299,26 @@ const resetPassword = async (
 
 };
 
+const getUserService = async(userData:JwtPayload,payload:string)=>{
+  const user = User.isUserExistsByEmail(payload);
+  if(!user){
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !!-1');
+  }
+
+  const userById = await User.isUserExistsByid(userData?.userId);
+  if (!userById) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !!-2');
+  }
+
+  const userByDelete = await User.isUserDeleted(userData?.userId);
+  if (userByDelete) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !!-3');
+  }
+
+  const result = await User.findOne({email:payload});
+  return result;
+
+}
 export const AuthServices = {
   signupService,
   loginService,
@@ -306,4 +326,5 @@ export const AuthServices = {
   refreshToken,
   forgatePassword,
   resetPassword,
+  getUserService,
 };

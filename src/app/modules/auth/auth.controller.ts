@@ -5,8 +5,6 @@ import { AuthServices } from './auth.service';
 import catchAsync from '../../utils/catchAsync';
 
 
-
-
 const signupUser = catchAsync(async (req, res) => {
   const result = await AuthServices.signupService(req.file, req.body);
 
@@ -109,6 +107,18 @@ const resetPassword = catchAsync(async (req, res) => {
   });
 });
 
+const getUser = catchAsync(async (req, res) => {
+  const { email } = req.query;
+ const result = await AuthServices.getUserService(req.user, email as string);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'User retrive is successfully!',
+    data: result,
+  });
+});
+
 export const AuthControllers = {
   signupUser,
   loginUser,
@@ -116,4 +126,5 @@ export const AuthControllers = {
   refreshToken,
   forgetPassword,
   resetPassword,
+  getUser,
 };
