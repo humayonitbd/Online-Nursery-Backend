@@ -8,6 +8,7 @@ export type TProduct = {
   description: string;
   stock: number;
   brand: string;
+  totalRating?:number;
   isDeleted?: boolean;
 };
 

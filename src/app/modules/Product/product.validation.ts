@@ -15,6 +15,7 @@ const createProductValidationSchema = z.object({
     stock: z.number().min(1, 'Product Details are required'),
     isDeleted: z.boolean().default(false).optional(),
     category: z.string().min(1, 'Category  is required'),
+    totalRating: z.number().optional().default(1),
     brand: z.string().min(1, 'Brand is requiered'),
   }),
 });
@@ -25,12 +26,17 @@ const updateProductValidationSchema = z.object({
     rating: z
       .number()
       .min(0, 'Rating cannot be less than 0')
-      .max(5, 'Rating cannot be more than 5').optional(),
+      .max(5, 'Rating cannot be more than 5')
+      .optional(),
     image: z.string().min(1, 'Product Image are required').optional(),
-    description: z.string().min(1, 'Product description are required').optional(),
+    description: z
+      .string()
+      .min(1, 'Product description are required')
+      .optional(),
     stock: z.number().min(1, 'Product Details are required').optional(),
     isDeleted: z.boolean().default(false).optional(),
     category: z.string().min(1, 'Category  is required').optional(),
+    totalRating: z.number().optional().default(1),
     brand: z.string().min(1, 'Brand is requiered').optional(),
   }),
 });

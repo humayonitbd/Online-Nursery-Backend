@@ -19,6 +19,7 @@ const ProductSchema = new Schema<TProduct>(
     stock: { type: Number, required: [true, 'Product Stoke are required'] },
     brand: { type: String, required: [true, 'Product brand are required'] },
     isDeleted: { type: Boolean, default: false },
+    totalRating: { type: Number, default: 1 },
     category: {
       type: String,
       required: [true, 'Category is required'],
