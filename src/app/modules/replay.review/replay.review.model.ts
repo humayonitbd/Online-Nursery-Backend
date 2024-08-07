@@ -1,12 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { TReview } from './review.interface';
+import { TReplayReview } from './replay.review.interface';
 
-
-const ProductReviewSchema = new Schema<TReview>(
+const ProductReplayReviewSchema = new Schema<TReplayReview>(
   {
-    reviewMessage: {
+    replayReviewMessage: {
       type: String,
-      required: [true, 'Product Review is required'],
+      required: [true, 'Product Replay Review is required'],
     },
     reviewAddDate: {
       type: String,
@@ -20,17 +19,16 @@ const ProductReviewSchema = new Schema<TReview>(
       type: String,
       required: [true, 'Review user image is required'],
     },
-    rating: {
-      type: Number,
-      required: [true, 'Product Rating is required'],
-      min: 0,
-      max: 5,
-    },
     likeTotal: { type: Number, default: 0 },
     productId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'Product',
+    },
+    reviewId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Review',
     },
   },
   {
@@ -38,4 +36,7 @@ const ProductReviewSchema = new Schema<TReview>(
   },
 );
 
-export const Review = model<TReview>('Review', ProductReviewSchema);
+export const ReplayReview = model<TReplayReview>(
+  'ReplayReview',
+  ProductReplayReviewSchema,
+);

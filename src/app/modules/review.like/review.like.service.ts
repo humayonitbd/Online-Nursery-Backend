@@ -42,14 +42,36 @@ const getAllProductServiceReviewLike = async (query: Record<string, unknown>) =>
   return { meta, result };
 };
 
-const deleteSingleProductServicReviewLike = async (payload: string) => {
-  const existingReviewLikeById = await ReviewLike.findById(payload);
+const deleteSingleProductServicReviewLike = async (
+  id: string,
+  payload: { email: string; reviewId :string, like:boolean},
+) => {
+  const existingReviewById = await Review.findById(payload?.reviewId);
+  const existingReviewLikeById = await ReviewLike.findById(id);
 
-  if (!existingReviewLikeById) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Product Review like is not found!!');
+  if (!existingReviewLikeById || !existingReviewById) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'Product Review like is not found!!',
+    );
   }
+
+  if (!payload?.like) {
+    const payloadData = {
+      likeTotal: existingReviewById.likeTotal - 1,
+    };
+
+    const reviewResult = await Review.findByIdAndUpdate(
+      payload.reviewId,
+      payloadData,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+  } 
   // Delete the product by ID
-  const result = await ReviewLike.deleteOne({ _id: payload });
+  const result = await ReviewLike.deleteOne({_id:id, email:payload.email});
 
   // Check if a product was actually deleted
   if (result.deletedCount === 0) {

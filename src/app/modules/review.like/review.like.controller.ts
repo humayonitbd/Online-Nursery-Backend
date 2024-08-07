@@ -51,7 +51,7 @@ const getAllProductReviewLike = catchAsync(async (req, res) => {
 
 const deleteSingleProductReviewLike = catchAsync(async (req, res) => {
   const result = await ProductReviewLikeService.deleteSingleProductServicReviewLike(
-    req.params.id,
+    req.params.id,req.body
   );
 
   if (!result) {
