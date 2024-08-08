@@ -6,6 +6,7 @@ const createProductReviewValidationSchema = z.object({
     reviewMessage: z.string().min(1, 'Product Review is required'),
     reviewAddDate: z.string().min(1, 'Review add date is required'),
     ratingUserName: z.string().min(1, 'Review user name is required'),
+    reviewUserEmail: z.string().min(1, 'Review user email is required'),
     ratingUserImg: z.string().min(1, 'Review user image is required'),
     likeTotal: z.number().optional().default(0),
     rating: z

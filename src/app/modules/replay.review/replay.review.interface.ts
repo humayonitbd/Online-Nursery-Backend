@@ -6,6 +6,7 @@ export type TReplayReview = {
   reviewId: Types.ObjectId;
   reviewAddDate: string;
   ratingUserName: string;
+  replayReviewUserEmail: string;
   ratingUserImg: string;
   likeTotal: number;
 };

@@ -15,6 +15,10 @@ const ProductReplayReviewSchema = new Schema<TReplayReview>(
       type: String,
       required: [true, 'Review user name is required'],
     },
+    replayReviewUserEmail: {
+      type: String,
+      required: [true, 'Review user Email is required'],
+    },
     ratingUserImg: {
       type: String,
       required: [true, 'Review user image is required'],

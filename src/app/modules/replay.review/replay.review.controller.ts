@@ -92,6 +92,7 @@ const deleteSingleProductReplayReview = catchAsync(async (req, res) => {
 });
 
 const updateSingleProductReplayReview = catchAsync(async (req, res) => {
+  // console.log('replay review payload con', req.params.id, req.body);
   const result = await ProductReplayReviewService.updateSingleProductServicReplayReview(
     req.params.id,
     req.body,

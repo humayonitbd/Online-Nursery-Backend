@@ -6,6 +6,7 @@ export type TReview = {
   productId: Types.ObjectId;
   reviewAddDate:string;
   ratingUserName:string;
+  reviewUserEmail:string;
   ratingUserImg:string;
   likeTotal:number;
 };

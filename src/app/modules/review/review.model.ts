@@ -16,6 +16,10 @@ const ProductReviewSchema = new Schema<TReview>(
       type: String,
       required: [true, 'Review user name is required'],
     },
+    reviewUserEmail: {
+      type: String,
+      required: [true, 'Review user email is required'],
+    },
     ratingUserImg: {
       type: String,
       required: [true, 'Review user image is required'],
