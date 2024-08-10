@@ -26,7 +26,7 @@ const productPayload = {
   totalRating: totalRating,
 };
 
-const productResult = await Product.findByIdAndUpdate(
+ await Product.findByIdAndUpdate(
   payload.productId,
   productPayload,
   {

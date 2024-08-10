@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ['https://incredible-wisp-0dbbfe.netlify.app'],
-    // origin: ['http://localhost:5173'],
+    // origin: ['http://localhost:5174'],
     credentials: true,
   }),
 );

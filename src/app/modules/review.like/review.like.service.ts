@@ -19,7 +19,7 @@ const createServicProductReviewLike = async (payload: TReviewLike) => {
       likeTotal: isExistingReview.likeTotal + 1,
     };
 
-  const  reviewResult = await Review.findByIdAndUpdate(payload.reviewId, payloadData, {
+  await Review.findByIdAndUpdate(payload.reviewId, payloadData, {
       new: true,
       runValidators: true,
     });
@@ -62,7 +62,7 @@ const deleteSingleProductServicReviewLike = async (
       likeTotal: existingReviewById.likeTotal - 1,
     };
 
-    const reviewResult = await Review.findByIdAndUpdate(
+     await Review.findByIdAndUpdate(
       payload.reviewId,
       payloadData,
       {

@@ -28,6 +28,7 @@ const authValidation = (...requiredRoles:TUserRole[]) => {
         throw new AppError(httpStatus.UNAUTHORIZED, 'You are Unauthorized!!');
       }
       
+      // console.log('decoded', decoded);
           //   const {userId,role} = decoded;
           const {role, userId, email, iat} = decoded;
 
